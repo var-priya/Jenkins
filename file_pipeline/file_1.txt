@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages{
+        stage("code"){
+            steps{
+                git url:"https://github.com/var-priya/node-todo-cicd-1.git",branch:"master"
+            }
+        }
+        stage("test and build"){
+            steps{
+                sh "docker build . -t node-todo-app"
+            }
+        }
+        stage("deploy"){
+            steps{
+                sh "docker run -dp 8000:8000 node-todo-app:latest"
+            }
+        }
+    }
+}i
